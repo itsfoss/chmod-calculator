@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+.row {
+  display: flex;
+}
+.column {
+  flex: 33.33%;
+  padding: 10px;
+}
+.btn {
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.calculate {background-color: #4CAF50;}
+.calculate:hover {background-color: #46a049;}
+
+</style>
+</head>
+<body>
+
+<h2>chmod Calculator</h2>
+
+<div class="row">
+  <div class="column">
+    <h2>Owner</h2>
+    Read: <input type="checkbox" id="ownerRead">
+    <p>
+    Write: <input type="checkbox" id="ownerWrite">
+    <p>
+	Execute: <input type="checkbox" id="ownerExecute">
+  </div>
+  <div class="column">
+    <h2>Group</h2>
+    Read: <input type="checkbox" id="groupRead">
+    <p>
+    Write: <input type="checkbox" id="groupWrite">
+    <p>
+    Execute: <input type="checkbox" id="groupExecute">	
+  </div>
+  <div class="column">
+    <h2>Other</h2>
+    Read: <input type="checkbox" id="otherRead">
+    <p>
+    Write: <input type="checkbox" id="otherWrite">
+    <p>
+    Execute: <input type="checkbox" id="otherExecute">
+  </div>
+</div>
+
+<button class="btn calculate" onclick="chmodResult()">Calculate</button>
+    
+<p id="result" style="display:none">Linux File Permission is <span id="chmodDecValue"></span> in absolute mode and <span id="chmodSymbol"></span> in  symbolic mode.</p>
+
+<script>
+
+var chmodDecValue=0;
+var chmodSymbol = '';
+
+function chmodResult() {
+  
+  if (document.getElementById("ownerRead").checked == true) {chmodDecValue+=400; chmodSymbol+='r';} else{chmodSymbol+='-'}
+  if (document.getElementById("ownerWrite").checked == true) {chmodDecValue+=200; chmodSymbol+='w';} else{chmodSymbol+='-'}
+  if (document.getElementById("ownerExecute").checked == true) {chmodDecValue+=100; chmodSymbol+='x';} else{chmodSymbol+='-'}
+  
+  if (document.getElementById("groupRead").checked == true) {chmodDecValue+=40; chmodSymbol+='r';} else{chmodSymbol+='-'}
+  if (document.getElementById("groupWrite").checked == true) {chmodDecValue+=20; chmodSymbol+='w';} else{chmodSymbol+='-'}
+  if (document.getElementById("groupExecute").checked == true) {chmodDecValue+=10; chmodSymbol+='x';} else{chmodSymbol+='-'}
+  
+  if (document.getElementById("otherRead").checked == true) {chmodDecValue+=4; chmodSymbol+='r';} else{chmodSymbol+='-'}
+  if (document.getElementById("otherWrite").checked == true) {chmodDecValue+=2; chmodSymbol+='w';} else{chmodSymbol+='-'}
+  if (document.getElementById("otherExecute").checked == true) {chmodDecValue+=1; chmodSymbol+='x';} else{chmodSymbol+='-'}
+    
+  document.getElementById("chmodDecValue").innerHTML = chmodDecValue;
+  document.getElementById("chmodSymbol").innerHTML = chmodSymbol;
+  result.style.display = "block";
+  chmodDecValue =0;
+  chmodSymbol = '';
+}
+   
+</script>
+    
+</body>
+</html>
